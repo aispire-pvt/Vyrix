@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aispire — Join the Waitlist</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Get exclusive early access to Aispire. Join the waitlist now and stay updated on our upcoming launch.">
+  <meta name="keywords" content="Aispire, AI, Software, Tech, Waitlist, Early Access">
+  
+  <!-- Preconnect and Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Dynamic Animated Background Canvas Layer (Rings Background) -->
+  <div class="background-container">
+    <div class="rings-background"></div>
+    <div class="rings-glow-overlay"></div>
+  </div>
+
+  <!-- Main Viewport Layout -->
+  <div class="viewport-wrapper">
+    
+    <!-- HEADER -->
+    <header class="header">
+      <div class="brand-container">
+        <!-- Minimal sleek Aispire top-text branding -->
+        <span class="brand-text">AISPIRE</span>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT (Frosted glass container) -->
+    <main class="main-content">
+      <div class="waitlist-card" id="waitlist-card">
+        <!-- Form View -->
+        <div class="card-inner" id="form-container">
+          <h1 class="heading">
+            <img src="join the waitlist.png" alt="Join the waitlist" class="heading-image">
+          </h1>
+          <p class="description">
+            Get exclusive early access to our software and stay updated on launch <span class="accent-text">news</span>.
+          </p>
+          
+          <form class="waitlist-form" id="waitlist-form" novalidate>
+            <div class="input-group">
+              <label for="email" class="sr-only">Your email address</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                placeholder="Your email address" 
+                autocomplete="email"
+                required
+              >
+              <div class="error-message" id="error-message">Please enter a valid email address.</div>
+            </div>
+            
+            <button type="submit" id="submit-btn" class="submit-btn">
+              <span class="btn-text">Join waitlist</span>
+              <span class="btn-loader"></span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Success View (Hidden by default) -->
+        <div class="success-container" id="success-container" aria-hidden="true">
+          <div class="success-icon-wrapper">
+            <svg class="checkmark-svg" viewBox="0 0 52 52">
+              <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+              <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+          </div>
+          <h2 class="success-heading">You're on the list!</h2>
+          <p class="success-description">
+            Thank you for joining. We've reserved your spot and sent a confirmation to <span class="user-email" id="display-email">your email</span>.
+          </p>
+          <button type="button" class="back-btn" id="back-btn">Go back</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER (Powered by Aispire in a straight horizontal line) -->
+    <footer class="footer">
+      <span class="powered-by">Powered by</span>
+      <img src="Asset 9@4x.png" alt="Aispire Logo" class="footer-logo">
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
