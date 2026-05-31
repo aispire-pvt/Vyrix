@@ -11,35 +11,40 @@ const PORT = process.env.PORT || 3000;
 
 // MongoDB Connection Configuration
 const uri = process.env.MONGODB_URI;
-if (!uri) {
-  console.error('🔴 MONGODB_URI environment variable is not defined!');
-}
-const client = new MongoClient(uri || 'mongodb://localhost:27017');
 const dbName = 'vyrix';
 const collectionName = 'waitlist';
 
-let db;
-let collection;
+let client = null;
+let db = null;
+let collection = null;
 
-// Establish database connection on startup
-async function connectDatabase() {
-  try {
-    console.log('Connecting to MongoDB Atlas...');
-    await client.connect();
-    db = client.db(dbName);
-    collection = db.collection(collectionName);
-    
-    // Create a unique index on email to guarantee data integrity at database level
-    await collection.createIndex({ email: 1 }, { unique: true });
-    
-    console.log('🟢 Successfully connected to MongoDB cluster and verified unique email index!');
-  } catch (err) {
-    console.error('🔴 MongoDB connection error:', err);
-    // Allow the server to start, but requests will fail until DB connects
+// Serverless-friendly dynamic database connection helper
+async function getCollection() {
+  if (collection) {
+    return collection;
   }
+
+  if (!uri) {
+    throw new Error('MONGODB_URI environment variable is missing. Please define it in your hosting provider settings (e.g., Vercel Dashboard).');
+  }
+
+  console.log('Connecting to MongoDB cluster...');
+  client = new MongoClient(uri);
+  await client.connect();
+  db = client.db(dbName);
+  collection = db.collection(collectionName);
+
+  // Ensure unique index on email to guarantee data integrity at database level
+  await collection.createIndex({ email: 1 }, { unique: true });
+  console.log('🟢 Successfully connected to MongoDB cluster and verified unique email index!');
+  return collection;
 }
 
-connectDatabase();
+// Proactively connect on startup (for long-running local/virtual servers)
+// If it fails initially, it will retry dynamically on the first incoming request.
+getCollection().catch((err) => {
+  console.warn('⚠️ Initial MongoDB connection failed (will retry on incoming requests):', err.message);
+});
 
 // Middleware to parse incoming request JSON
 app.use(express.json());
@@ -67,12 +72,11 @@ app.post('/api/waitlist', async (req, res) => {
   const cleanEmail = email.trim().toLowerCase();
 
   try {
-    if (!collection) {
-      return res.status(503).json({ error: 'Database service is currently unavailable. Please try again shortly.' });
-    }
+    // Dynamically retrieve collection (reuses connection or establishes a new one)
+    const activeCollection = await getCollection();
 
     // Check for duplicate submission (case-insensitive)
-    const exists = await collection.findOne({ email: cleanEmail });
+    const exists = await activeCollection.findOne({ email: cleanEmail });
     if (exists) {
       return res.status(400).json({ error: 'This email is already registered on the waitlist!' });
     }
@@ -83,15 +87,15 @@ app.post('/api/waitlist', async (req, res) => {
       timestamp: new Date().toISOString(),
     };
 
-    await collection.insertOne(newEntry);
+    await activeCollection.insertOne(newEntry);
     return res.status(200).json({ success: true, message: 'Successfully joined waitlist!' });
   } catch (err) {
     // Handle index duplicate key error in case of concurrent submissions
     if (err.code === 11000) {
       return res.status(400).json({ error: 'This email is already registered on the waitlist!' });
     }
-    console.error('Database write error:', err);
-    return res.status(500).json({ error: 'Database error. Please try again later.' });
+    console.error('Database query/write error:', err);
+    return res.status(500).json({ error: err.message || 'Database error. Please try again later.' });
   }
 });
 
@@ -101,11 +105,16 @@ app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Start Server listener
-app.listen(PORT, () => {
-  console.log(`\n==================================================`);
-  console.log(`🚀 AISPIRE waitlist backend server is running!`);
-  console.log(`🔗 Access local landing page: http://localhost:${PORT}`);
-  console.log(`==================================================\n`);
-});
+// Start Server listener (only if run directly, not when imported as a serverless module)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n==================================================`);
+    console.log(`🚀 AISPIRE waitlist backend server is running!`);
+    console.log(`🔗 Access local landing page: http://localhost:${PORT}`);
+    console.log('==================================================\n');
+  });
+}
+
+// Export the Express app for Vercel/serverless integration
+module.exports = app;
 
