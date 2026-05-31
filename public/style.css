@@ -10,23 +10,23 @@
   --color-gray: #B0B0B0;
   --color-accent-orange: #FF6428;
   --color-cyan: #00D9FF;
-  
+
   /* Pure Glassmorphism Styling (Optimized Alpha values) */
   --card-bg: rgba(10, 16, 30, 0.45);
   --card-border: rgba(255, 255, 255, 0.08);
-  
+
   --input-bg: rgba(255, 255, 255, 0.03);
   --input-border: rgba(255, 255, 255, 0.1);
   --input-bg-focus: rgba(255, 255, 255, 0.06);
   --input-border-focus: rgba(255, 255, 255, 0.35);
-  
+
   --btn-bg: #FFFFFF;
   --btn-text: #000000;
-  
+
   /* Fonts Stack */
   --font-heading: 'Bebas Neue', sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, "SF Pro", "SF Pro Display", "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
-  
+
   /* High-Performance Transitions (transform/opacity-based only) */
   --transition-smooth: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s ease-out, border-color 0.2s ease-out;
   --transition-quick: transform 0.15s ease-out, opacity 0.15s ease-out, border-color 0.15s ease-out;
@@ -39,7 +39,8 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   background-color: var(--bg-primary);
@@ -93,11 +94,11 @@ html, body {
   background-position: center right;
   background-size: cover;
   background-repeat: no-repeat;
-  
+
   opacity: 0.92;
   filter: brightness(1.4) saturate(1.25);
   -webkit-filter: brightness(1.4) saturate(1.25);
-  
+
   /* Hardware Acceleration Promoters */
   will-change: transform;
   transform: translate3d(0, 0, 0);
@@ -105,7 +106,7 @@ html, body {
   -webkit-backface-visibility: hidden;
   perspective: 1000;
   -webkit-perspective: 1000;
-  
+
   animation: rings-subtle-drift 24s ease-in-out infinite alternate;
 }
 
@@ -173,31 +174,34 @@ html, body {
   max-width: 500px;
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
-  
-  box-shadow: 
+
+  box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.85),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12); /* Glass top edge refraction highlight */
-  
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  /* Glass top edge refraction highlight */
+
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 20px;
-  padding: 55px 50px; /* 5px smaller top/bottom (rectangular) */
+  padding: 55px 50px;
+  /* 5px smaller top/bottom (rectangular) */
   text-align: center;
   position: relative;
   overflow: hidden;
-  
+
   /* Render isolation & Hardware Promotion */
   contain: layout style;
   transform: translate3d(0, 0, 0);
   will-change: transform, opacity;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  
+
   animation: card-entrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Card inner views (Form / Success) */
-.card-inner, .success-container {
+.card-inner,
+.success-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -488,8 +492,8 @@ html, body {
 }
 
 .footer-logo {
-  height: 20px;
-  max-height: 20px;
+  height: 30px;
+  max-height: 45px;
   width: auto;
   opacity: 0.75;
   filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.05));
@@ -508,9 +512,11 @@ html, body {
   0% {
     transform: translate3d(0, 0, 0) scale(1);
   }
+
   50% {
     transform: translate3d(-5px, 3px, 0) scale(1.015);
   }
+
   100% {
     transform: translate3d(3px, -2px, 0) scale(1.005);
   }
@@ -522,6 +528,7 @@ html, body {
     opacity: 0;
     transform: translate3d(0, 20px, 0) scale(0.97);
   }
+
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
@@ -543,9 +550,12 @@ html, body {
 }
 
 @keyframes check-scale {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: none;
   }
+
   50% {
     transform: scale3d(1.15, 1.15, 1);
   }
@@ -553,9 +563,21 @@ html, body {
 
 /* Inline Shake Style natively defined in CSS to prevent JS injection reflow bottlenecks */
 @keyframes input-shake {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  20%, 60% { transform: translate3d(-6px, 0, 0); }
-  40%, 80% { transform: translate3d(6px, 0, 0); }
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  20%,
+  60% {
+    transform: translate3d(-6px, 0, 0);
+  }
+
+  40%,
+  80% {
+    transform: translate3d(6px, 0, 0);
+  }
 }
 
 .input-shaking {
@@ -571,21 +593,22 @@ html, body {
   .viewport-wrapper {
     padding: 35px 24px;
   }
-  
+
   .waitlist-card {
     max-width: 480px;
-    padding: 50px 40px; /* Reduced rectangular padding */
+    padding: 50px 40px;
+    /* Reduced rectangular padding */
   }
-  
+
   .heading-image {
     max-width: 290px;
   }
-  
+
   .description {
     font-size: 14px;
     margin-bottom: 35px;
   }
-  
+
   .rings-background {
     opacity: 0.85;
   }
@@ -604,15 +627,15 @@ html, body {
     justify-content: flex-start;
     gap: 40px;
   }
-  
+
   .header {
     margin-top: 10px;
   }
-  
+
   .brand-text {
     font-size: 14px;
   }
-  
+
   .main-content {
     flex: none;
     margin: auto 0;
@@ -621,54 +644,55 @@ html, body {
   .waitlist-card {
     max-width: 100%;
     border-radius: 16px;
-    padding: 35px 24px; /* Reduced rectangular padding */
+    padding: 35px 24px;
+    /* Reduced rectangular padding */
     margin: 0;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
   }
-  
+
   .heading {
     margin-bottom: 20px;
   }
-  
+
   .heading-image {
     max-width: 240px;
   }
-  
+
   .description {
     font-size: 13.5px;
     line-height: 1.5;
     margin-bottom: 30px;
     max-width: 100%;
   }
-  
+
   .input-group {
     margin-bottom: 16px;
   }
-  
+
   .input-group input {
     padding: 13px 16px;
     font-size: 13.5px;
   }
-  
+
   .submit-btn {
     padding: 13px 24px;
     font-size: 14px;
   }
-  
+
   .success-container {
     padding: 35px 24px;
   }
-  
+
   .success-heading {
     font-size: 30px;
   }
-  
+
   .rings-background {
     background-position: center 30%;
     background-size: cover;
     opacity: 0.75;
   }
-  
+
   .footer {
     margin-bottom: 10px;
   }
@@ -679,11 +703,11 @@ html, body {
   .viewport-wrapper {
     padding: 20px;
   }
-  
+
   .waitlist-card {
     padding: 30px 40px;
   }
-  
+
   .heading {
     margin-bottom: 18px;
   }
