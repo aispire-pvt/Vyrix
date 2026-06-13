@@ -153,6 +153,19 @@ body {
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 }
 
+.brand-logo {
+  height: 32px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.brand-logo:hover {
+  opacity: 0.85;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
 /* 6. CENTRAL CARD CONTAINER (Optimized Glassmorphism Modal, No Neon Glows) */
 .main-content {
   flex: 1;
