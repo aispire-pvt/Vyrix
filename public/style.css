@@ -465,6 +465,19 @@ body {
   font-weight: 500;
 }
 
+.success-college {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-gray);
+  margin-bottom: 28px;
+}
+
+.user-college {
+  color: var(--color-cyan);
+  font-weight: 500;
+}
+
 /* Back Button */
 .back-btn {
   background: transparent;

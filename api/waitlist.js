@@ -1,7 +1,15 @@
 const { MongoClient } = require('mongodb');
 
+// Dynamically load dotenv as a local development fallback if env vars aren't loaded yet
+if (!process.env.MONGODB_URI) {
+  try {
+    require('dotenv').config();
+  } catch (e) {
+    // Ignore if dotenv is not present (e.g. in minimal production container setups)
+  }
+}
+
 // MongoDB Connection Configuration
-const uri = process.env.MONGODB_URI;
 const dbName = 'vyrix';
 const collectionName = 'waitlist';
 
@@ -18,12 +26,15 @@ async function connectToDatabase() {
     return { client: cachedClient, db: cachedDb };
   }
 
+  const uri = process.env.MONGODB_URI;
   if (!uri) {
     throw new Error('MONGODB_URI environment variable is missing. Please define it in your Vercel Dashboard Settings.');
   }
 
   console.log('Connecting to MongoDB cluster (lazy connection)...');
-  const client = new MongoClient(uri);
+  const client = new MongoClient(uri, {
+    tls: true, // Explicitly enforce secure TLS negotiation
+  });
   await client.connect();
   const db = client.db(dbName);
 
@@ -43,10 +54,14 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
 
-  const { email } = req.body;
+  const { email, college } = req.body;
 
   if (!email) {
     return res.status(400).json({ error: 'Email address is required.' });
+  }
+
+  if (!college || !college.trim()) {
+    return res.status(400).json({ error: 'College name is required.' });
   }
 
   // Rigid email format validation
@@ -77,6 +92,7 @@ module.exports = async function handler(req, res) {
     // Insert new waitlist registration
     const newEntry = {
       email: cleanEmail,
+      college: college.trim() || 'UPES',
       timestamp: new Date().toISOString(),
     };
 

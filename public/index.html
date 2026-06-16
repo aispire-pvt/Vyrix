@@ -63,6 +63,19 @@
               >
               <div class="error-message" id="error-message">Please enter a valid email address.</div>
             </div>
+
+            <div class="input-group">
+              <label for="college" class="sr-only">Your college name</label>
+              <input 
+                type="text" 
+                id="college" 
+                name="college" 
+                placeholder="Your college" 
+                autocomplete="organization"
+                required
+              >
+              <div class="error-message" id="college-error-message">Please enter your college name.</div>
+            </div>
             
             <button type="submit" id="submit-btn" class="submit-btn">
               <span class="btn-text">Join waitlist</span>
@@ -82,6 +95,9 @@
           <h2 class="success-heading">You're on the list!</h2>
           <p class="success-description">
             Thank you for joining. We've reserved your spot and sent a confirmation to <span class="user-email" id="display-email">your email</span>.
+          </p>
+          <p class="success-college">
+            College: <span class="user-college" id="display-college">UPES</span>
           </p>
           <button type="button" class="back-btn" id="back-btn">Go back</button>
         </div>

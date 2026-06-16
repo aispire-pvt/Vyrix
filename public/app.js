@@ -7,14 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // Elements Selection
   const waitlistForm = document.getElementById('waitlist-form');
   const emailInput = document.getElementById('email');
+  const collegeInput = document.getElementById('college');
   const submitBtn = document.getElementById('submit-btn');
   const inputGroup = emailInput.closest('.input-group');
+  const collegeInputGroup = collegeInput.closest('.input-group');
   const errorMessage = document.getElementById('error-message');
+  const collegeErrorMessage = document.getElementById('college-error-message');
   
   // Views Selection
   const formContainer = document.getElementById('form-container');
   const successContainer = document.getElementById('success-container');
   const displayEmail = document.getElementById('display-email');
+  const displayCollege = document.getElementById('display-college');
   const backBtn = document.getElementById('back-btn');
 
   // Regex for rigid email verification
@@ -22,33 +26,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Shows inline input field validation error
+   * @param {HTMLElement} group - The input-group container element
+   * @param {HTMLElement} msgEl - The error-message element
+   * @param {HTMLElement} inputEl - The input element to shake
    * @param {string} message - Specific error instruction to display
    */
-  function showError(message) {
-    inputGroup.classList.add('has-error');
-    errorMessage.textContent = message;
-    errorMessage.setAttribute('aria-hidden', 'false');
-    errorMessage.setAttribute('role', 'alert');
+  function showError(group, msgEl, inputEl, message) {
+    group.classList.add('has-error');
+    msgEl.textContent = message;
+    msgEl.setAttribute('aria-hidden', 'false');
+    msgEl.setAttribute('role', 'alert');
 
     // Trigger high-performance hardware-accelerated shake animation via class toggles
-    emailInput.classList.remove('input-shaking');
+    inputEl.classList.remove('input-shaking');
     // Force layout recalculation locally via offsetHeight to reset animation timeline
-    emailInput.offsetHeight; 
-    emailInput.classList.add('input-shaking');
+    inputEl.offsetHeight; 
+    inputEl.classList.add('input-shaking');
     
     // Clear shake class after animation completes
     setTimeout(() => {
-      emailInput.classList.remove('input-shaking');
+      inputEl.classList.remove('input-shaking');
     }, 400);
   }
 
   /**
-   * Resets active validation errors
+   * Resets active validation errors on a specific input group
    */
-  function clearError() {
-    inputGroup.classList.remove('has-error');
-    errorMessage.removeAttribute('role');
-    errorMessage.setAttribute('aria-hidden', 'true');
+  function clearError(group, msgEl) {
+    group.classList.remove('has-error');
+    msgEl.removeAttribute('role');
+    msgEl.setAttribute('aria-hidden', 'true');
   }
 
   /**
@@ -57,34 +64,65 @@ document.addEventListener('DOMContentLoaded', () => {
   function validateEmail(value) {
     const trimmedVal = value.trim();
     if (!trimmedVal) {
-      showError('Please enter your email address.');
+      showError(inputGroup, errorMessage, emailInput, 'Please enter your email address.');
       return false;
     }
     if (!emailRegex.test(trimmedVal)) {
-      showError('Please enter a valid email address (e.g. name@domain.com).');
+      showError(inputGroup, errorMessage, emailInput, 'Please enter a valid email address (e.g. name@domain.com).');
       return false;
     }
-    clearError();
+    clearError(inputGroup, errorMessage);
     return true;
   }
 
-  // Live input correction
+  /**
+   * College field validation check
+   */
+  function validateCollege(value) {
+    const trimmedVal = value.trim();
+    if (!trimmedVal) {
+      showError(collegeInputGroup, collegeErrorMessage, collegeInput, 'Please enter your college name.');
+      return false;
+    }
+    clearError(collegeInputGroup, collegeErrorMessage);
+    return true;
+  }
+
+  // Live input correction — email
   emailInput.addEventListener('input', () => {
     if (inputGroup.classList.contains('has-error')) {
       const trimmed = emailInput.value.trim();
       if (trimmed && emailRegex.test(trimmed)) {
-        clearError();
+        clearError(inputGroup, errorMessage);
       }
     }
   });
 
-  // Blur validation helper
+  // Live input correction — college
+  collegeInput.addEventListener('input', () => {
+    if (collegeInputGroup.classList.contains('has-error')) {
+      const trimmed = collegeInput.value.trim();
+      if (trimmed) {
+        clearError(collegeInputGroup, collegeErrorMessage);
+      }
+    }
+  });
+
+  // Blur validation — email
   emailInput.addEventListener('blur', () => {
     const val = emailInput.value.trim();
     if (val) {
       validateEmail(val);
     } else {
-      clearError();
+      clearError(inputGroup, errorMessage);
+    }
+  });
+
+  // Blur validation — college
+  collegeInput.addEventListener('blur', () => {
+    const val = collegeInput.value.trim();
+    if (!val) {
+      validateCollege(val);
     }
   });
 
@@ -93,9 +131,13 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     
     const emailValue = emailInput.value.trim();
+    const collegeValue = collegeInput.value.trim();
     
-    // Perform final check before submission
-    if (!validateEmail(emailValue)) {
+    // Perform final checks before submission
+    const emailValid = validateEmail(emailValue);
+    const collegeValid = validateCollege(collegeValue);
+    
+    if (!emailValid || !collegeValid) {
       return;
     }
 
@@ -103,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     submitBtn.classList.add('is-loading');
     submitBtn.setAttribute('aria-busy', 'true');
     emailInput.setAttribute('disabled', 'true');
+    collegeInput.setAttribute('disabled', 'true');
     submitBtn.setAttribute('disabled', 'true');
 
     // Make AJAX POST request to local Node.js server database
@@ -111,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email: emailValue }),
+      body: JSON.stringify({ email: emailValue, college: collegeValue }),
     })
       .then(async (response) => {
         const data = await response.json();
@@ -124,10 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.classList.remove('is-loading');
         submitBtn.removeAttribute('aria-busy');
         emailInput.removeAttribute('disabled');
+        collegeInput.removeAttribute('disabled');
         submitBtn.removeAttribute('disabled');
 
         // Populate Success screen safely
         displayEmail.textContent = emailValue;
+        displayCollege.textContent = collegeValue;
 
         // Transition to Success Card view
         transitionToSuccess();
@@ -137,10 +182,11 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.classList.remove('is-loading');
         submitBtn.removeAttribute('aria-busy');
         emailInput.removeAttribute('disabled');
+        collegeInput.removeAttribute('disabled');
         submitBtn.removeAttribute('disabled');
         
         // Display backend error in inline UI
-        showError(err.message || 'Something went wrong. Please try again.');
+        showError(inputGroup, errorMessage, emailInput, err.message || 'Something went wrong. Please try again.');
       });
   });
 
@@ -186,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Clear and focus input
       emailInput.value = '';
+      collegeInput.value = '';
       emailInput.focus();
     }, 300);
   }
