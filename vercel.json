@@ -1,3 +1,11 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "functions": {
+    "api/waitlist.js": {
+      "memory": 256
+    }
+  }
 }
