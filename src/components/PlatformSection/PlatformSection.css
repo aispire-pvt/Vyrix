@@ -1,0 +1,95 @@
+.platform-section {
+  padding: 96px 40px 120px;
+  background: var(--color-bg);
+  text-align: center;
+}
+
+.platform-section__heading {
+  font-size: 48px;
+  font-family: var(--font-display);
+  color: #212121;
+  margin-bottom: 64px;
+}
+
+.platform-section__grid {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+.platform-section__divider {
+  width: 1px;
+  height: 280px;
+  background: #616161;
+  align-self: center;
+}
+
+.platform-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.platform-card__badge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.platform-card__badge img {
+  width: 62px;
+  height: 62px;
+}
+
+.platform-card__badge span {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 32px;
+  color: #000000;
+}
+
+.platform-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.platform-card__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 169px;
+  height: 42px;
+  padding: 0 24px;
+  border-radius: 26px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s ease;
+}
+
+.platform-card__button:hover {
+  transform: translateY(-2px);
+}
+
+.platform-card__button--filled {
+  background: #206f8d;
+  color: #ebebeb;
+}
+
+.platform-card__button--outline {
+  border: 1px solid #616161;
+  color: #000000;
+  background: transparent;
+}
+
+@media (max-width: 720px) {
+  .platform-section__divider {
+    display: none;
+  }
+}

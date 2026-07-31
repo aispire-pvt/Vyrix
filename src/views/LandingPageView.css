@@ -1,0 +1,8 @@
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  /* clip (not hidden) prevents horizontal scroll without turning this into a
+     scroll container, which would break the sticky / auto-hiding header. */
+  overflow-x: clip;
+}

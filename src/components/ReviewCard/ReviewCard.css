@@ -1,0 +1,26 @@
+.review-card {
+  background: var(--color-primary);
+  border-radius: 26px;
+  padding: 24px 30px;
+  box-shadow: 0 12px 28px rgba(0, 28, 38, 0.14);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.review-card .star-rating {
+  margin-bottom: 14px;
+}
+
+.review-card--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.review-card__text {
+  font-size: 18px;
+  font-weight: 500;
+  color: #f5f5f5;
+  line-height: 1.368;
+  text-align: left;
+}

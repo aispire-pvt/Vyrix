@@ -1,0 +1,28 @@
+.whats-new {
+  padding: 96px 40px;
+  background: var(--color-bg-alt);
+  text-align: center;
+}
+
+.whats-new__heading {
+  font-size: 48px;
+  color: #000000;
+}
+
+.whats-new__subheading {
+  margin: 16px auto 0;
+  max-width: 640px;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.whats-new__grid {
+  margin-top: 64px;
+  max-width: 1100px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
+  text-align: left;
+}

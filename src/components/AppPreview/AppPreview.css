@@ -1,0 +1,32 @@
+.app-preview {
+  padding: 56px 60px 96px;
+}
+
+.app-preview__card {
+  max-width: 1457px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 4px 14px 0px rgba(0, 28, 38, 0.33);
+  opacity: 0;
+  transform: scale(0.88) translateY(60px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.app-preview__card--visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.app-preview__card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 720px) {
+  .app-preview {
+    padding: 0 20px 64px;
+  }
+}
