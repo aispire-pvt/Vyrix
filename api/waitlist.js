@@ -1,9 +1,10 @@
-const { MongoClient } = require('mongodb');
+import { MongoClient } from 'mongodb';
 
 // Dynamically load dotenv as a local development fallback if env vars aren't loaded yet
 if (!process.env.MONGODB_URI) {
   try {
-    require('dotenv').config();
+    const dotenv = await import('dotenv');
+    dotenv.config();
   } catch (e) {
     // Ignore if dotenv is not present (e.g. in minimal production container setups)
   }
@@ -47,7 +48,7 @@ async function connectToDatabase() {
 /**
  * Main Vercel serverless API handler for /api/waitlist
  */
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   // Only permit POST requests
   if (req.method !== 'POST') {
     res.setHeader('Allow', ['POST']);

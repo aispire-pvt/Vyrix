@@ -1,9 +1,13 @@
 // Load environment variables from local .env file
-require('dotenv').config();
+import 'dotenv/config';
 
-const express = require('express');
-const path = require('path');
-const waitlistHandler = require('./api/waitlist');
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import waitlistHandler from './api/waitlist.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -44,6 +48,6 @@ app.listen(PORT, () => {
 });
 
 // Export the Express app for compatibility
-module.exports = app;
+export default app;
 
 
