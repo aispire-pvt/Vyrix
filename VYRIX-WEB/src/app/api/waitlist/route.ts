@@ -18,17 +18,16 @@ async function sendConfirmationEmail(email: string) {
     body: JSON.stringify({
       sender: { email: sender, name: "Vyrix" },
       to: [{ email }],
-      subject: "You're on the Vyrix waitlist 🎉",
+      subject: "You're on the Vyrix Early Access List",
       htmlContent: `
         <div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:40px 24px;color:#0A0A0A">
           <img src="https://vyrix.in/vyrix-logo.png" alt="Vyrix" style="height:28px;margin-bottom:32px" />
-          <h1 style="font-size:24px;font-weight:800;margin:0 0 12px">You're in.</h1>
-          <p style="font-size:16px;line-height:1.6;color:#4B5563;margin:0 0 24px">
-            Thanks for joining the Vyrix waitlist. We'll reach out as soon as early access opens — no need to check back.
-          </p>
-          <p style="font-size:14px;color:#6B7280;margin:0">
-            — The Vyrix team, <a href="https://vyrix.in" style="color:#0A0A0A">vyrix.in</a>
-          </p>
+          <p style="font-size:16px;line-height:1.6;margin:0 0 16px">Hey,</p>
+          <p style="font-size:16px;line-height:1.6;margin:0 0 16px">Thanks for joining the waitlist. You're in.</p>
+          <p style="font-size:16px;line-height:1.6;margin:0 0 16px">We're launching early access in 8–10 weeks. You'll be among the first to use Vyrix when it opens and we'll email you the moment your access is ready.</p>
+          <p style="font-size:16px;line-height:1.6;margin:0 0 32px">In the meantime, follow us on Instagram <a href="https://instagram.com/vyrixbyaispire" style="color:#0A0A0A;font-weight:600">@vyrixbyaispire</a> to stay updated on progress, features, and release news.</p>
+          <p style="font-size:16px;line-height:1.6;margin:0 0 8px">See you soon.</p>
+          <p style="font-size:16px;line-height:1.6;margin:0">Regards,<br /><strong>Team Vyrix</strong></p>
         </div>
       `,
     }),
