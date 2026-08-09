@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import WhoItsFor from "@/components/WhoItsFor";
 import HowItWorks from "@/components/HowItWorks";
@@ -30,7 +29,6 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
       <ScrollProgress />
-      <Header />
 
       <main className="pt-[74px]">
         {position !== null ? (
