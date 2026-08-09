@@ -118,8 +118,8 @@ export const footerContent = {
   socials: {
     label: "Socials",
     links: [
-      { id: "instagram", href: "https://instagram.com", name: "Instagram" },
-      { id: "linkedin", href: "https://linkedin.com", name: "LinkedIn" },
+      { id: "instagram", href: "https://www.instagram.com/vyrixbyaispire?igsh=N3ViMjMxdnJnMWpo", name: "Instagram" },
+      { id: "linkedin", href: "https://www.linkedin.com/company/vyrix/", name: "LinkedIn" },
     ],
   },
   copyright: "© 2026 Vyrix. All rights reserved.",
