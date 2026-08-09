@@ -68,8 +68,7 @@ export async function POST(request: NextRequest) {
 
     const total = await collection.countDocuments();
 
-    // Fire and forget — don't await so it doesn't slow down the response
-    sendConfirmationEmail(cleanEmail);
+    await sendConfirmationEmail(cleanEmail);
 
     return NextResponse.json({ position: total });
   } catch (err: unknown) {
