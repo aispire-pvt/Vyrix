@@ -28,6 +28,9 @@ export default function ConfirmationPage({ position }: { position: number }) {
               <p className="mt-1.5 text-[16px] text-[#4B5563]">
                 We&apos;ll email you first — no need to check back.
               </p>
+              <p className="mt-4 text-[13px] text-[#6B7280]">
+                Can&apos;t find the confirmation email? Check your spam or junk folder.
+              </p>
             </Reveal>
 
             <div className="flex justify-center md:justify-end">
