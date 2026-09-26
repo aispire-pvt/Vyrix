@@ -7,5 +7,15 @@
     "api/waitlist.js": {
       "memory": 256
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/upes",
+      "destination": "https://vyrix-upes.vercel.app/"
+    },
+    {
+      "source": "/upes/:path*",
+      "destination": "https://vyrix-upes.vercel.app/:path*"
+    }
+  ]
 }
