@@ -10,7 +10,7 @@ export default defineConfig({
       '/upes': {
         target: 'https://vyrix-five.vercel.app',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/upes/, '')
+        rewrite: (path) => path.replace(/^\/upes/, '/downloads-upes')
       }
     }
   }
