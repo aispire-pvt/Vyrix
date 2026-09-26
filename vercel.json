@@ -11,11 +11,11 @@
   "rewrites": [
     {
       "source": "/upes",
-      "destination": "https://vyrix-upes.vercel.app/"
+      "destination": "https://vyrix-five.vercel.app/"
     },
     {
       "source": "/upes/:path*",
-      "destination": "https://vyrix-upes.vercel.app/:path*"
+      "destination": "https://vyrix-five.vercel.app/:path*"
     }
   ]
 }
