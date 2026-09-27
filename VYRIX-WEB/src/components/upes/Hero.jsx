@@ -1,3 +1,4 @@
+"use client";
 import { motion, useReducedMotion } from "framer-motion";
 import { Download, ArrowRight } from "lucide-react";
 
@@ -22,7 +23,7 @@ function HeroIllustration() {
       className="relative mx-auto w-full max-w-[285px] md:max-w-[400px]"
     >
       <img
-        src={`${import.meta.env.BASE_URL}Hero%20section%20studying%20boy.png`}
+        src={`/Hero%20section%20studying%20boy.png`}
         alt="Student using Vyrix to organize design research"
         className="block h-auto w-full object-contain"
         loading="eager"

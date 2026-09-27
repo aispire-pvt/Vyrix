@@ -1,5 +1,5 @@
+"use client";
 import { motion } from "framer-motion";
-import { Instagram, Linkedin } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -22,22 +22,22 @@ export default function Footer() {
             <a
               href="https://www.instagram.com/vyrixbyaispire"
               aria-label="Instagram"
-              className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-black transition-colors hover:bg-accent"
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-black transition-colors hover:bg-accent text-[10px] font-bold"
             >
-              <Instagram size={14} />
+              IG
             </a>
             <a
               href="https://www.linkedin.com/company/vyrix/"
               aria-label="LinkedIn"
-              className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-black transition-colors hover:bg-accent"
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-black transition-colors hover:bg-accent text-[10px] font-bold"
             >
-              <Linkedin size={14} />
+              IN
             </a>
           </div>
         </div>
 
         <div className="flex flex-col items-center gap-2 sm:items-center">
-          <img src={`${import.meta.env.BASE_URL}footerLogo.png`} alt="Aispire logo" className="h-44 w-auto object-contain" loading="lazy" />
+          <img src={`/footerLogo.png`} alt="Aispire logo" className="h-44 w-auto object-contain" loading="lazy" />
           <p className="text-[10px] text-white/75">A product from Aispire Private Limited</p>
         </div>
       </div>

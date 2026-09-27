@@ -1,3 +1,4 @@
+"use client";
 import Navbar from "@/components/upes/Navbar";
 import Hero from "@/components/upes/Hero";
 import AppShowcase from "@/components/upes/AppShowcase";

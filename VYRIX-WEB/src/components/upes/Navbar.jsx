@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -104,7 +105,7 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex h-full max-w-[1760px] items-center justify-between px-6 sm:px-10 lg:pl-0 lg:pr-8">
         <a href="#top" aria-label="Vyrix home" className="flex items-center pl-2 sm:pl-3 lg:pl-4">
-          <img src={`${import.meta.env.BASE_URL}Logo.png`} alt="Vyrix" className="h-3.5 w-auto md:h-5" />
+          <img src={`/Logo.png`} alt="Vyrix" className="h-3.5 w-auto md:h-5" />
         </a>
 
         <ul className="hidden items-center gap-10 text-[12px] text-ink md:flex">
