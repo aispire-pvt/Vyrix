@@ -6,8 +6,20 @@ function PlatformIcon({ src, alt, className = "h-7 w-7" }) {
 }
 
 const PLATFORMS = [
-  { name: "Windows", src: `/WindowsLogo.png`, alt: "Windows logo" },
-  { name: "Mac", src: `/AppleLogo.png`, alt: "Apple logo" },
+  {
+    name: "Windows",
+    src: `/WindowsLogo.png`,
+    alt: "Windows logo",
+    href: process.env.NEXT_PUBLIC_WINDOWS_DOWNLOAD_URL || process.env.NEXT_PUBLIC_DOWNLOAD_URL_WINDOWS || "#",
+    installGuideUrl: process.env.NEXT_PUBLIC_WINDOWS_INSTALL_GUIDE_URL || process.env.NEXT_PUBLIC_INSTALL_GUIDE_WINDOWS || "#",
+  },
+  {
+    name: "Mac",
+    src: `/AppleLogo.png`,
+    alt: "Apple logo",
+    href: process.env.NEXT_PUBLIC_MAC_DOWNLOAD_URL || process.env.NEXT_PUBLIC_DOWNLOAD_URL_MAC || "#",
+    installGuideUrl: process.env.NEXT_PUBLIC_MAC_INSTALL_GUIDE_URL || process.env.NEXT_PUBLIC_INSTALL_GUIDE_MAC || "#",
+  },
 ];
 
 export default function Platform() {
@@ -24,7 +36,7 @@ export default function Platform() {
       </motion.h2>
 
       <div className="flex flex-col items-center justify-center gap-8 sm:flex-row sm:gap-16">
-        {PLATFORMS.map(({ name, src, alt }, i) => (
+        {PLATFORMS.map(({ name, src, alt, href, installGuideUrl }, i) => (
           <motion.div
             key={name}
             initial={{ opacity: 0, y: 24 }}
@@ -38,12 +50,33 @@ export default function Platform() {
               {name}
             </div>
             <div className="flex items-center gap-3">
-              <button className="rounded-full border border-black/40 px-7 py-2 text-[11px] font-medium transition-colors hover:bg-black hover:text-white">
+              <a
+                href={installGuideUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  if (!installGuideUrl || installGuideUrl === "#") {
+                    e.preventDefault();
+                    console.warn(`Install guide link for ${name} is not set in environment variables.`);
+                  }
+                }}
+                className="inline-flex items-center justify-center rounded-full border border-black/40 px-7 py-2 text-[11px] font-medium transition-colors hover:bg-black hover:text-white"
+              >
                 How to install
-              </button>
-              <button className="rounded-full bg-black px-8 py-2 text-[11px] font-medium text-accent transition-transform hover:-translate-y-0.5">
+              </a>
+              <a
+                href={href}
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  if (!href || href === "#") {
+                    e.preventDefault();
+                    console.warn(`Download link for ${name} is not set in environment variables.`);
+                  }
+                }}
+                className="inline-flex items-center justify-center rounded-full bg-black px-8 py-2 text-[11px] font-medium text-accent transition-transform hover:-translate-y-0.5"
+              >
                 Download
-              </button>
+              </a>
             </div>
           </motion.div>
         ))}

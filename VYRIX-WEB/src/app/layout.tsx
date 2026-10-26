@@ -14,6 +14,14 @@ export const metadata: Metadata = {
   title: "Vyrix — Early Access",
   description:
     "Vyrix structures your project, checks your validation, and shows you what to do next — built for design students stuck between the brief and the breakthrough.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

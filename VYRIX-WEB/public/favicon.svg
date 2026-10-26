@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <style>
+    path, polygon { fill: #000000; }
+    @media (prefers-color-scheme: dark) {
+      path, polygon { fill: #ffffff; }
+    }
+  </style>
+  <g transform="translate(10, 28.71) scale(1.07009)">
+    <path d="M46.37,0l-16.55,17.74h28.17L74.76,0s-28.4,0-28.39,0Z"/>
+    <polygon points="29.71 19.64 25.17 19.64 28.25 16.31 33.73 10.4 20.6 0 0 0 0 9.62 37.14 39.78 51.55 24.51 45.4 19.64 29.71 19.64"/>
+  </g>
+</svg>

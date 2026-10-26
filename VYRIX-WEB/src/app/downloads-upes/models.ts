@@ -109,8 +109,18 @@ export const reviews = [
 export const platformsIntro = { heading: "Choose your platform" };
 
 export const platforms = [
-  { id: "windows", label: "Windows", downloadHref: "#download-windows", installHref: "#install-windows" },
-  { id: "mac", label: "Mac", downloadHref: "#download-mac", installHref: "#install-mac" },
+  {
+    id: "windows",
+    label: "Windows",
+    downloadHref: process.env.NEXT_PUBLIC_WINDOWS_DOWNLOAD_URL || process.env.NEXT_PUBLIC_DOWNLOAD_URL_WINDOWS || "#download-windows",
+    installHref: process.env.NEXT_PUBLIC_WINDOWS_INSTALL_GUIDE_URL || process.env.NEXT_PUBLIC_INSTALL_GUIDE_WINDOWS || "#install-windows",
+  },
+  {
+    id: "mac",
+    label: "Mac",
+    downloadHref: process.env.NEXT_PUBLIC_MAC_DOWNLOAD_URL || process.env.NEXT_PUBLIC_DOWNLOAD_URL_MAC || "#download-mac",
+    installHref: process.env.NEXT_PUBLIC_MAC_INSTALL_GUIDE_URL || process.env.NEXT_PUBLIC_INSTALL_GUIDE_MAC || "#install-mac",
+  },
 ];
 
 export const footerContent = {
