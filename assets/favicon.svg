@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <style>
+    .vyrix-mark {
+      fill: #000000;
+    }
+    @media (prefers-color-scheme: dark) {
+      .vyrix-mark {
+        fill: #ffffff;
+      }
+    }
+  </style>
+  <polygon class="vyrix-mark" points="212.6,243.2 378.0,243.2 476.0,139.1 309.6,139.1" />
+  <polygon class="vyrix-mark" points="36.0,139.1 157.5,139.1 234.1,199.3 186.1,255.5 304.5,255.5 339.2,284.1 254.5,372.9 36.0,196.3" />
+</svg>
