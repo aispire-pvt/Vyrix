@@ -24,6 +24,20 @@ const SCROLLBAR_CSS = `
 @supports not selector(::-webkit-scrollbar) { * { scrollbar-color: ${Y} ${BK}; } }
 `;
 
+const getSvgFaviconUri = (dark: boolean) =>
+  `data:image/svg+xml,${encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <style>
+    .vyrix-mark { fill: ${dark ? '#ffffff' : '#000000'}; }
+    @media (prefers-color-scheme: dark) {
+      .vyrix-mark { fill: #ffffff; }
+    }
+  </style>
+  <polygon class="vyrix-mark" points="212.6,243.2 378.0,243.2 476.0,139.1 309.6,139.1" />
+  <polygon class="vyrix-mark" points="36.0,139.1 157.5,139.1 234.1,199.3 186.1,255.5 304.5,255.5 339.2,284.1 254.5,372.9 36.0,196.3" />
+</svg>
+`.trim())}`;
+
 export default function App() {
   // Fonts live in assets/fonts (not node_modules): Vercel drops node_modules paths from the deployed output.
   const [loaded] = useFonts({
@@ -44,7 +58,26 @@ export default function App() {
     const el = document.createElement('style');
     el.textContent = SCROLLBAR_CSS;
     document.head.appendChild(el);
-    return () => el.remove();
+
+    // Adaptive SVG favicon: switches between black (light mode) and white (dark mode)
+    const matcher = window.matchMedia('(prefers-color-scheme: dark)');
+    let link = document.querySelector<HTMLLinkElement>("link[rel~='icon'][type='image/svg+xml']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      link.type = 'image/svg+xml';
+      document.head.appendChild(link);
+    }
+    const updateFavicon = () => {
+      if (link) link.href = getSvgFaviconUri(matcher.matches);
+    };
+    updateFavicon();
+    matcher.addEventListener?.('change', updateFavicon);
+
+    return () => {
+      el.remove();
+      matcher.removeEventListener?.('change', updateFavicon);
+    };
   }, []);
 
   const checks = useRef(new Set<Check>()).current;
